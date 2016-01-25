@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/SceneEnemies.unity
+- path: Assets/Scenes/Platforming Game Jam.unity
   isLoaded: 1
   isActive: 1

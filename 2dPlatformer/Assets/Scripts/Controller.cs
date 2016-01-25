@@ -43,6 +43,7 @@ public class Controller : MonoBehaviour
 		if (Input.GetKeyDown (KeyCode.W) && controller.collisions.below) 
 		{
 			velocity.y = jumpVelocity;
+            gameObject.GetComponent<AudioSource>().Play();
 		}
 		
 		float targetVelocityX = input.x * moveSpeed;
