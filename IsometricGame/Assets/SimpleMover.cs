@@ -3,8 +3,10 @@ using System.Collections;
 
 public class SimpleMover : MonoBehaviour {
 
+    [SerializeField] AudioSource EndSound;
     Transform StartTilePosition;
     Transform EndTilePosition;
+    bool Playing = true;
 
     // Use this for initialization
     void Start() {
@@ -17,7 +19,7 @@ public class SimpleMover : MonoBehaviour {
     void Update()
     {
         Debug.Log(Time.time % .1);
-        if (Time.time % .1 <= 0.02)
+        if (Time.time % .1 <= 0.02 && Playing)
         {
             if (Input.GetAxisRaw("Horizontal") != 0)
             {
@@ -47,9 +49,18 @@ public class SimpleMover : MonoBehaviour {
             
         }
         
-        if (gameObject.transform.position == EndTilePosition.position)
+        if ((gameObject.transform.position == EndTilePosition.position) && Playing)
         {
-            Debug.Log("Edn");
+            Playing = false;
+            StartCoroutine("EndLevel");
         }
+    }
+
+    IEnumerator EndLevel()
+    {
+        EndSound.Play();
+        EndTilePosition.gameObject.GetComponentInChildren<ParticleSystem>().Play();
+        yield return new WaitForSeconds(1.1f);
+        Application.LoadLevel(Application.loadedLevel);
     }
 }
